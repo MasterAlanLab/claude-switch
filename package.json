@@ -1,0 +1,42 @@
+{
+  "name": "claude-switch",
+  "description": "在本机保存、管理和快速切换多个 Claude 登录状态的浏览器扩展。",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.3.14",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "wxt",
+    "build": "wxt build",
+    "zip": "wxt zip",
+    "zip:chrome": "wxt zip --browser chrome",
+    "release:build": "bun run zip:chrome",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "bun run build && playwright test",
+    "check": "bun run typecheck && bun run test && bun run build",
+    "postinstall": "wxt prepare",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "lucide-react": "^1.43.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.5.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@wxt-dev/module-react": "^1.2.2",
+    "prettier": "^3.9.0",
+    "typescript": "^7.0.0",
+    "vitest": "^5.0.0",
+    "wxt": "^0.21.4"
+  }
+}

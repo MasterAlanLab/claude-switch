@@ -1,0 +1,7 @@
+node_modules/
+.wxt/
+dist/
+artifacts/
+bun.lock
+public/
+docs/screenshots/
