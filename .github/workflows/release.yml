@@ -48,14 +48,17 @@ jobs:
           bun run typecheck
           bun run test
 
-      - name: Build browser package
+      - name: Build browser packages
         run: bun run release:build
 
       - name: Verify release assets
         shell: bash
         run: |
           for asset in \
-            "dist/claude-switch-${PACKAGE_VERSION}-chrome.zip"; do
+            "dist/claude-switch-${PACKAGE_VERSION}-chrome.zip" \
+            "dist/claude-switch-${PACKAGE_VERSION}-edge.zip" \
+            "dist/claude-switch-${PACKAGE_VERSION}-firefox.zip" \
+            "dist/claude-switch-${PACKAGE_VERSION}-sources.zip"; do
             test -f "$asset" || { echo "Missing release asset: $asset"; exit 1; }
           done
 
@@ -66,6 +69,9 @@ jobs:
         run: |
           assets=(
             "dist/claude-switch-${PACKAGE_VERSION}-chrome.zip"
+            "dist/claude-switch-${PACKAGE_VERSION}-edge.zip"
+            "dist/claude-switch-${PACKAGE_VERSION}-firefox.zip"
+            "dist/claude-switch-${PACKAGE_VERSION}-sources.zip"
           )
 
           if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then

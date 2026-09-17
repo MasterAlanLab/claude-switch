@@ -1,4 +1,5 @@
 export const CLAUDE_URL = 'https://claude.ai/';
+export const CLAUDE_ORIGINS = ['https://claude.ai/*', 'https://*.claude.ai/*'];
 
 export function isClaudeHost(host: string): boolean {
   return host === 'claude.ai' || host.endsWith('.claude.ai');

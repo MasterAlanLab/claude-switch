@@ -32,6 +32,7 @@ import {
   X,
 } from 'lucide-react';
 import { browser } from 'wxt/browser';
+import { CLAUDE_ORIGINS } from '../../lib/domains';
 import { parseSessionInput } from '../../lib/session';
 import type { AccountSummary, AppState, Command, Response, Settings } from '../../lib/types';
 import AccountMenu from './AccountMenu';
@@ -216,6 +217,9 @@ export default function App() {
   const closeMenu = useCallback(() => setMenu(undefined), []);
   const [modal, setModal] = useState<Modal>(null);
   const [rename, setRename] = useState('');
+  // Firefox MV3 treats host_permissions as optional, so the cookie APIs stay
+  // silent until the user grants claude.ai access from a click in the popup.
+  const [hostAccess, setHostAccess] = useState(true);
   const inFlight = useRef(false);
 
   const run = useCallback(async (command: Command): Promise<boolean> => {
@@ -251,6 +255,22 @@ export default function App() {
   };
 
   useEffect(() => void run({ type: 'state' }), [run]);
+  useEffect(() => {
+    browser.permissions.contains({ origins: CLAUDE_ORIGINS }).then(setHostAccess, () => {});
+  }, []);
+
+  const grantHostAccess = async () => {
+    try {
+      const granted = await browser.permissions.request({ origins: CLAUDE_ORIGINS });
+      setHostAccess(granted);
+      if (granted) await run({ type: 'state' });
+    } catch {
+      setNotice({
+        text: '授权未完成，请在扩展管理页为 Claude Switch 开启 claude.ai 访问权限。',
+        error: true,
+      });
+    }
+  };
   useEffect(() => closeMenu(), [tab, query, closeMenu]);
 
   const context = state?.context;
@@ -377,7 +397,19 @@ export default function App() {
           </div>
         )}
 
-        {!state ? (
+        {!hostAccess ? (
+          <section className="loading-state">
+            <LockKeyhole size={26} />
+            <p>需要 claude.ai 访问权限才能读取和切换登录 Cookie</p>
+            <button
+              className="button primary"
+              onClick={() => void grantHostAccess()}
+              disabled={busy}
+            >
+              授权访问 claude.ai
+            </button>
+          </section>
+        ) : !state ? (
           <section className="loading-state">
             {busy ? (
               <>

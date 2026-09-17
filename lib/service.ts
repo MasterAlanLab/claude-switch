@@ -142,7 +142,12 @@ export class SwitchService {
         ? (await this.api.tabs.query({ active: true, currentWindow: true }))[0]
         : await this.api.tabs.get(tabId);
     if (tab?.id === undefined) throw new UserError('请在浏览器窗口中打开扩展。');
-    if (Boolean(tab.incognito) !== Boolean(this.api.extension.inIncognitoContext)) {
+    // Only split mode runs a separate incognito extension process; Firefox spans
+    // both window types from one process, so inIncognitoContext is always false there.
+    if (
+      this.api.runtime.getManifest().incognito === 'split' &&
+      Boolean(tab.incognito) !== Boolean(this.api.extension.inIncognitoContext)
+    ) {
       throw new UserError('窗口环境不一致，请在目标窗口重新打开扩展。');
     }
     const stores = await this.api.cookies.getAllCookieStores();

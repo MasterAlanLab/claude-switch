@@ -4,10 +4,14 @@ import { SwitchService } from '../lib/service';
 
 export default defineBackground(() => {
   const service = new SwitchService(browser);
-  const ready = Promise.all([
-    browser.storage.local.setAccessLevel({ accessLevel: 'TRUSTED_CONTEXTS' }),
-    browser.storage.session.setAccessLevel({ accessLevel: 'TRUSTED_CONTEXTS' }),
-  ]);
+  // TRUSTED_CONTEXTS is already the default; Firefox does not implement setAccessLevel.
+  const ready = Promise.all(
+    [browser.storage.local, browser.storage.session].map((area) =>
+      typeof area.setAccessLevel === 'function'
+        ? area.setAccessLevel({ accessLevel: 'TRUSTED_CONTEXTS' })
+        : undefined,
+    ),
+  );
 
   browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (sender.id !== browser.runtime.id || sender.url !== browser.runtime.getURL('/popup.html')) {

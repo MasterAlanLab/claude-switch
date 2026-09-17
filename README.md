@@ -11,7 +11,7 @@
 
 用于保存、管理和切换多个 Claude 登录状态的浏览器扩展。账号数据保存在当前浏览器本机，无需反复退出登录或重新输入账号信息。
 
-支持 Chrome，可从 [Releases](https://github.com/MasterAlanLab/claude-switch/releases) 下载发布包。
+支持 Chrome、Edge 和 Firefox，可从 [Releases](https://github.com/MasterAlanLab/claude-switch/releases) 下载对应浏览器的发布包。
 
 > Claude Switch 并非 Anthropic 官方产品，也不隶属于或代表 Anthropic。
 
@@ -40,9 +40,17 @@
 
 ## 安装
 
-从 [Releases](https://github.com/MasterAlanLab/claude-switch/releases) 下载并解压 `claude-switch-<version>-chrome.zip`。
+从 [Releases](https://github.com/MasterAlanLab/claude-switch/releases) 下载对应浏览器的发布包：
 
-在 Chrome 扩展管理页开启开发者模式，选择「加载已解压的扩展程序」，然后选择解压后的目录。
+| 浏览器  | 发布包                                | 安装方式                                                                             |
+| :------ | :------------------------------------ | :----------------------------------------------------------------------------------- |
+| Chrome  | `claude-switch-<version>-chrome.zip`  | 解压后，在扩展管理页开启开发者模式，选择「加载已解压的扩展程序」并选择解压目录       |
+| Edge    | `claude-switch-<version>-edge.zip`    | 同上，在 `edge://extensions` 开启开发人员模式后「加载解压缩的扩展」                  |
+| Firefox | `claude-switch-<version>-firefox.zip` | 在 `about:debugging#/runtime/this-firefox` 选择「临时加载附加组件」并选择该 zip 文件 |
+
+Firefox 需要 115 及以上版本。首次打开扩展时如提示授权，请点击「授权访问 claude.ai」；如需在隐私窗口中使用，请在 `about:addons` 中为 Claude Switch 开启「在隐私窗口中运行」。
+
+`claude-switch-<version>-sources.zip` 是随 Firefox 包一同生成的源码归档，用于 AMO 审核，普通用户无需下载。
 
 ## 数据与隐私
 
@@ -79,7 +87,9 @@ bun run build
 bun run release:build
 ```
 
-`bun run release:build` 会在 `dist/` 中生成 Chrome 发布包。
+`bun run release:build` 会在 `dist/` 中依次生成 Chrome、Edge、Firefox 发布包以及 Firefox 源码归档；也可以单独运行 `bun run zip:chrome`、`bun run zip:edge` 或 `bun run zip:firefox`。
+
+推送 `v*` 标签后，GitHub Actions 会自动构建并把四个文件上传到对应的 Release。
 
 ## 测试
 
