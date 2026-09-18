@@ -3,6 +3,7 @@
   <h1>Claude Switch</h1>
   <p><strong>保存 · 管理 · 快速切换</strong></p>
   <p>
+    <a href="https://chromewebstore.google.com/detail/claude-switch/idahfoimcmeffdafipbchcmfbodbcjhh"><img src="https://img.shields.io/badge/Chrome_Web_Store-立即安装-4285F4?style=flat-square&amp;logo=googlechrome&amp;logoColor=white" alt="从 Chrome 应用商店安装"></a>
     <a href="https://github.com/MasterAlanLab/claude-switch/releases"><img src="https://img.shields.io/github/v/release/MasterAlanLab/claude-switch?display_name=tag&amp;style=flat-square&amp;logo=github&amp;logoColor=white&amp;label=Release&amp;color=E3A72F&amp;cacheSeconds=300" alt="最新版本"></a>
     <a href="https://github.com/MasterAlanLab/claude-switch/actions/workflows/release.yml"><img src="https://img.shields.io/github/actions/workflow/status/MasterAlanLab/claude-switch/release.yml?style=flat-square&amp;logo=githubactions&amp;logoColor=white&amp;label=Release" alt="发布状态"></a>
     <a href="PRIVACY.md"><img src="https://img.shields.io/badge/Privacy-Local--first-17191D?style=flat-square" alt="隐私政策"></a>
@@ -11,7 +12,7 @@
 
 用于保存、管理和切换多个 Claude 登录状态的浏览器扩展。账号数据保存在当前浏览器本机，无需反复退出登录或重新输入账号信息。
 
-支持 Chrome、Edge 和 Firefox，可从 [Releases](https://github.com/MasterAlanLab/claude-switch/releases) 下载对应浏览器的发布包。
+支持 Chrome、Edge 和 Firefox。Chrome 用户可直接从 [Chrome 应用商店](https://chromewebstore.google.com/detail/claude-switch/idahfoimcmeffdafipbchcmfbodbcjhh) 安装；其他浏览器可从 [Releases](https://github.com/MasterAlanLab/claude-switch/releases) 下载对应的发布包。
 
 > Claude Switch 并非 Anthropic 官方产品，也不隶属于或代表 Anthropic。
 
@@ -39,6 +40,12 @@
 也可以在「快捷登录」中粘贴有效的 sessionKey、Cookie JSON 或 Cookie Header。
 
 ## 安装
+
+### Chrome 应用商店
+
+[前往 Chrome 应用商店安装 Claude Switch](https://chromewebstore.google.com/detail/claude-switch/idahfoimcmeffdafipbchcmfbodbcjhh)，点击「添加至 Chrome」即可完成安装，并自动接收后续版本更新。
+
+### 手动安装
 
 从 [Releases](https://github.com/MasterAlanLab/claude-switch/releases) 下载对应浏览器的发布包：
 
